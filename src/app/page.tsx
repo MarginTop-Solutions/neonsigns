@@ -12,7 +12,7 @@ const Home: React.FC = () => {
   const [props, setProps] = useState<IProps>({
     text: "",
     font: "neonhimala",
-    color: "#f00"
+    color: "#ff0000"
   });
 
   return (

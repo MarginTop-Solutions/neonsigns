@@ -23,7 +23,8 @@ export default function NeonText({ props }: { props: IProps }) {
                 style={neonOn ?
                     {
                         fontFamily: props.font,
-                        color: "#fff",
+                        // color: "#fff",
+                        color: props.color,
                         fontSize: "5.5rem",
                         textShadow: shadow
                     } : {

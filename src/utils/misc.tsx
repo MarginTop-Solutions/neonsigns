@@ -1,11 +1,11 @@
 export const topBarItems = [
-    "Home",
-    "Design your own sign",
-    "Get a Quote",
-    "Custom Neon",
-    "Shop",
-    "Business Logos",
-    "OutDoor Signs"
+    // "Home",
+    // "Design your own sign",
+    // "Get a Quote",
+    // "Custom Neon",
+    // "Shop",
+    // "Business Logos",
+    // "OutDoor Signs"
 ];
 
 export const fontData = [
@@ -15,9 +15,9 @@ export const fontData = [
 ]
 
 export const colorData = [
-    "#f00",
-    "#0f0",
-    "#00f"
+    "#ff0000",
+    "#00ff00",
+    "#0000ff"
 ]
 
 export const getGradient = (startColor: string, endColor: string, steps: number): string[] => {
@@ -44,7 +44,7 @@ export const getGradient = (startColor: string, endColor: string, steps: number)
 };
 
 export const getNeonShadow = (color: string): string => {
-    const delta = 2;
+    const delta = 8;
     const colors = getGradient("#ffffff", color, 8);
 
     var size = delta;
