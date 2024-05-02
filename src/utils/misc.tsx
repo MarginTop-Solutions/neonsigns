@@ -43,7 +43,7 @@ export const getGradient = (startColor: string, endColor: string, steps: number)
     return colors;
 };
 
-export const getNeonShadow = (color: string): string => {
+export const getNeonShadowCSS = (color: string): string => {
     const delta = 8;
     const colors = getGradient("#ffffff", color, 8);
 
