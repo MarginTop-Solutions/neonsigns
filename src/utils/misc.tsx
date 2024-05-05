@@ -58,3 +58,31 @@ export const getNeonShadowCSS = (color: string): string => {
 
     return shadow;
 }
+
+
+export class Curve {
+
+    points: number[] = [];
+
+    addPoint(x: number, y: number) {
+        this.points.push(x);
+        this.points.push(y);
+    }
+
+    clear() {
+        this.points = [];
+    }
+
+    updatePoint(index: number, x: number, y: number) {
+        this.points[2 * index] = x;
+        this.points[2 * index + 1] = y;
+    }
+
+    getCount() {
+        return this.points.length / 2;
+    }
+
+    // hasPoints() {
+    //     return this.points.length > 0;
+    // }
+}
