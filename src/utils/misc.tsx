@@ -20,6 +20,16 @@ export const colorData = [
     "#0000ff"
 ]
 
+export const downloadElementRender = (ref: any) => {
+    const dataURL = ref.current.toDataURL();
+    const link = document.createElement('a');
+    link.download = 'render.png';
+    link.href = dataURL;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
 export const getGradient = (startColor: string, endColor: string, steps: number): string[] => {
 
     const start = parseInt(startColor.slice(1), 16);

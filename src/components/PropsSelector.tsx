@@ -3,10 +3,10 @@
 import { IProps, IPropswSetState } from "@/utils/Interfaces";
 import { fontData, colorData } from "@/utils/misc";
 
-const PropsSelector: React.FC<IPropswSetState> = ({ props, setProps }) => {
+const PropsSelector: React.FC<IPropswSetState> = ({ props, setProps, onSubmit }) => {
 
     return (
-        <div className="card-big p-12 space-y-8">
+        <div className="pr-12 space-y-8">
             <div className="flex flex-col gap-2">
                 <p>Enter your Text Here</p>
                 <input
@@ -48,6 +48,8 @@ const PropsSelector: React.FC<IPropswSetState> = ({ props, setProps }) => {
                     ))}
                 </div>
             </div>
+
+            <button className="px-8 py-3 rounded-xl border-2 border-black bg-white hover:invert font-bold" onClick={onSubmit}>Submit</button>
 
         </div>
     )

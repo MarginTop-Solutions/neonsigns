@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { MouseEventHandler } from 'react';
 
 
 export interface IProps {
@@ -9,4 +9,5 @@ export interface IProps {
 export interface IPropswSetState {
     props: IProps;
     setProps: React.Dispatch<React.SetStateAction<IProps>>;
+    onSubmit: MouseEventHandler<HTMLButtonElement>
 }

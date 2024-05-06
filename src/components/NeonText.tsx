@@ -2,12 +2,12 @@
 
 import { IProps } from "@/utils/Interfaces"
 import { getGradient, Curve } from "@/utils/misc";
-import { useState } from "react";
+import { RefObject, useRef, useState } from "react";
 import image1 from '../assets/Images/lounge1.jpg'
 import { Group, Image, Layer, Line, Stage, Text } from "react-konva";
 import Konva from "konva";
 
-export default function NeonText({ props }: { props: IProps }) {
+export default function NeonText({ props, stageRef }: { props: IProps, stageRef: any }) {
     const bgimage = new window.Image();
     bgimage.src = image1.src;
 
@@ -46,8 +46,8 @@ export default function NeonText({ props }: { props: IProps }) {
     }
 
     return (
-        <div className="relative flex-grow flex flex-col items-center justify-center p-12 shadow-lg rounded-xl">
-            <div className="absolute top-2 left-2 flex gap-2">
+        <div className="relative flex-grow flex flex-col items-center justify-center p-12 shadow-lg rounded-xl overflow-hidden">
+            <div className="absolute top-2 left-2 flex gap-2 z-10">
                 <button
                     onClick={_ => setNeonOn(!neonOn)}
                     className=" rounded-md px-4 py-2 font-bold"
@@ -67,13 +67,15 @@ export default function NeonText({ props }: { props: IProps }) {
                 > DragMode Toggle </button>
             </div>
 
-            <img src={bgimage.src} width={window.innerWidth} height={window.innerHeight} className="absolute -z-10" />
+            <img src={bgimage.src} width={window.innerWidth} height={window.innerHeight} className="absolute -z-10 rounded-xl" />
 
             <Stage
-                width={window.innerWidth * 0.65}
-                height={window.innerHeight * 0.7}
+                ref={stageRef}
+                width={window.innerWidth}
+                height={window.innerHeight}
                 onMouseDown={canvasMouseDown}
                 onMouseMove={canvasMouseMove}
+                className="absolute"
             >
 
                 {/* <Layer>
@@ -88,11 +90,11 @@ export default function NeonText({ props }: { props: IProps }) {
                 <Layer>
                     <Group
                         draggable={dragMode}
-                        x={300} y={200}
+                        x={window.innerWidth * 0.35} y={window.innerHeight * 0.3}
                     >
                         <Text
                             text={props.text || "Your Text"}
-                            fontSize={90} fontFamily={props.font}
+                            fontSize={120} fontFamily={props.font}
                             shadowEnabled={neonOn}
 
                             fill={props.color}
@@ -102,7 +104,7 @@ export default function NeonText({ props }: { props: IProps }) {
 
                         {neonOn && <Text
                             text={props.text || "Your Text"}
-                            fontSize={90} fontFamily={props.font}
+                            fontSize={120} fontFamily={props.font}
                             shadowEnabled={neonOn} opacity={0.6}
 
                             fill="#ffffff" stroke={props.color} strokeWidth={2}
@@ -122,7 +124,7 @@ export default function NeonText({ props }: { props: IProps }) {
                             shadowEnabled={neonOn} tension={0.5}
 
                             stroke={props.color} strokeWidth={8}
-                            shadowColor={props.color}
+                            shadowColor={props.color} lineCap="round" lineJoin="round"
                             shadowBlur={40}
                         />
 
@@ -131,7 +133,7 @@ export default function NeonText({ props }: { props: IProps }) {
                             shadowEnabled={neonOn} tension={0.5}
 
                             stroke="#ffffff" strokeWidth={4} opacity={0.6}
-                            shadowColor={props.color}
+                            shadowColor={props.color} lineCap="round" lineJoin="round"
                             shadowBlur={30}
                         />}
                     </Group>)}
