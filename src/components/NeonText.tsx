@@ -8,8 +8,6 @@ import { Group, Image, Layer, Line, Stage, Text } from "react-konva";
 import Konva from "konva";
 
 export default function NeonText({ props, stageRef }: { props: IProps, stageRef: any }) {
-    const bgimage = new window.Image();
-    bgimage.src = image1.src;
 
     const [neonOn, setNeonOn] = useState(true);
     const [dragMode, setDragMode] = useState(false);
@@ -67,7 +65,7 @@ export default function NeonText({ props, stageRef }: { props: IProps, stageRef:
                 > DragMode Toggle </button>
             </div>
 
-            <img src={bgimage.src} width={window.innerWidth} height={window.innerHeight} className="absolute -z-10 rounded-xl" />
+            <img src={image1.src} className="absolute -z-10 rounded-xl w-full object-cover" />
 
             <Stage
                 ref={stageRef}

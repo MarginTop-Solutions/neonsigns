@@ -1,6 +1,4 @@
 import React, { MouseEventHandler } from 'react';
-
-
 export interface IProps {
     text: string | undefined, color: string, font: string
 }

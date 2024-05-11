@@ -12,6 +12,7 @@
     "auto-deploy": "npm run static && npm run deploy"
   },
   "dependencies": {
+    "canvas": "^2.11.2",
     "gh-pages": "^6.1.1",
     "konva": "^9.3.6",
     "lucide-react": "^0.376.0",

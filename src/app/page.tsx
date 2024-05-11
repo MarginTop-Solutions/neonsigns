@@ -1,11 +1,14 @@
 'use client';
 
-import NeonText from "@/components/NeonText";
+import dynamic from 'next/dynamic';
+// import NeonText from "@/components/NeonText";
 import PropsSelector from "@/components/PropsSelector";
 import { IProps } from "@/utils/Interfaces";
 import { downloadElementRender, topBarItems } from "@/utils/misc";
 import { Search, ShoppingBag } from "lucide-react";
 import React, { useRef, useState } from "react";
+
+const NeonText = dynamic(() => import('@/components/NeonText'), { ssr: false });
 
 
 const Home: React.FC = () => {
