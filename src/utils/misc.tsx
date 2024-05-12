@@ -1,11 +1,7 @@
 export const topBarItems = [
-    // "Home",
-    // "Design your own sign",
-    // "Get a Quote",
-    // "Custom Neon",
-    // "Shop",
-    // "Business Logos",
-    // "OutDoor Signs"
+    "NeonText",
+    "FrameAdmin",
+    "FrameUser"
 ];
 
 export const fontData = [

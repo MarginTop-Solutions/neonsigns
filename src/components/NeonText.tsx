@@ -4,8 +4,9 @@ import { IProps } from "@/utils/Interfaces"
 import { getGradient, Curve } from "@/utils/misc";
 import { RefObject, useRef, useState } from "react";
 import image1 from '../assets/Images/lounge1.jpg'
-import { Group, Image, Layer, Line, Stage, Text } from "react-konva";
+import { Group, Image, Layer, Line, Rect, Stage, Text } from "react-konva";
 import Konva from "konva";
+import { Container } from "konva/lib/Container";
 
 export default function NeonText({ props, stageRef }: { props: IProps, stageRef: any }) {
 
@@ -114,6 +115,7 @@ export default function NeonText({ props, stageRef }: { props: IProps, stageRef:
 
                 <Layer>
                     {curves.map((c, i) => <Group
+                        clipWidth={400} clipHeight={400}
                         draggable={dragMode}
                         x={0} y={0} key={i}
                     >

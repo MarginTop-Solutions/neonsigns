@@ -33,7 +33,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "dist/types/**/*.ts"
-  ],
+, "src/components/ImgFrameAdmin.jsx"  ],
   "exclude": [
     "node_modules"
   ]
