@@ -1,21 +1,13 @@
 import { Group, Image, Layer, Rect, Stage } from "react-konva";
-import { useState, useEffect } from "react";
-import _frame from "@/assets/Images/family.png";
+import { useState, useContext } from "react";
+import { FrameContext } from "@/utils/FrameContext";
+import { FrameRect } from "@/utils/misc";
 
 export default function ImgFrameAdmin() {
-    const [rects, setRects] = useState([]);
+    const { rects, addNewRect, frameImage } = useContext(FrameContext);
     const [drawMode, setDrawMode] = useState(false);
     const [tempRect, setTempRect] = useState(null);
-    const [frameImage, setFrameImage] = useState(null);
 
-    useEffect(() => {
-        // Load the frame image when the component mounts
-        const frame = new window.Image();
-        frame.onload = () => {
-            setFrameImage(frame);
-        };
-        frame.src = _frame.src;
-    }, []);
 
     const onCanvasMouseMove = (e) => {
         if (!drawMode || !tempRect) return;
@@ -32,9 +24,10 @@ export default function ImgFrameAdmin() {
         if (!drawMode) return;
 
         const pos = e.target.getStage().getRelativePointerPosition();
+        console.log(pos);
         if (tempRect) {
             // // add new rect
-            setRects((p) => [...p, { x: tempRect.x, y: tempRect.y, w: tempRect.ex - tempRect.x, h: tempRect.ey - tempRect.y }]);
+            addNewRect(new FrameRect(tempRect.x, tempRect.y, tempRect.ex - tempRect.x, tempRect.ey - tempRect.y));
             setTempRect(null);
         } else {
             // add temp rect
@@ -42,11 +35,11 @@ export default function ImgFrameAdmin() {
         }
     };
 
-    const onCanvasMouseUp = e => {
-        if (!drawMode || !tempRect) return;
-        setRects((p) => [...p, { x: tempRect.x, y: tempRect.y, w: tempRect.ex - tempRect.x, h: tempRect.ey - tempRect.y }]);
-        setTempRect(null);
-    }
+    // const onCanvasMouseUp = e => {
+    //     if (!drawMode || !tempRect) return;
+    //     setRects((p) => [...p, { x: tempRect.x, y: tempRect.y, w: tempRect.ex - tempRect.x, h: tempRect.ey - tempRect.y }]);
+    //     setTempRect(null);
+    // }
 
     return (
         <div className="relative flex items-start w-full flex-grow rounded-xl">
@@ -60,14 +53,16 @@ export default function ImgFrameAdmin() {
             <Stage
                 width={window.innerWidth}
                 height={window.innerHeight}
+                onMouseDown={onCanvasMouseDown}
+                onMouseMove={onCanvasMouseMove}
                 className="absolute top-0 left-0 bg-slate-200 rounded-xl"
                 draggable={!drawMode}
             >
                 <Layer>
                     <Group
-                        onMouseDown={onCanvasMouseDown}
-                        onMouseMove={onCanvasMouseMove}
-                        onMouseUp={onCanvasMouseUp}
+                        className="bg-red-100"
+
+                    // onMouseUp={onCanvasMouseUp}
                     >
                         {frameImage && (
                             <Image

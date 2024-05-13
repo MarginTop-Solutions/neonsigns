@@ -1,3 +1,4 @@
+
 export const topBarItems = [
     "NeonText",
     "FrameAdmin",
@@ -91,4 +92,38 @@ export class Curve {
     // hasPoints() {
     //     return this.points.length > 0;
     // }
+}
+
+export class FrameRect {
+
+    x: number;
+    y: number;
+    w: number;
+    h: number;
+    image: File | null;
+
+
+    constructor(x: number, y: number, w: number, h: number) {
+        this.x = x;
+        this.y = y;
+        this.w = w;
+        this.h = h;
+        this.image = null;
+    }
+
+    setImage(image: File | null) {
+        console.log("add image");
+        this.image = image;
+    }
+}
+
+export class Frame {
+
+    rects: FrameRect[];
+    image: HTMLImageElement;
+
+    constructor(image: HTMLImageElement) {
+        this.rects = [];
+        this.image = image;
+    }
 }
