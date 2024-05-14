@@ -95,12 +95,14 @@ export class Curve {
 }
 
 export class FrameRect {
+    static _id: number = 0;
 
     x: number;
     y: number;
     w: number;
     h: number;
     image: File | null;
+    id: number;
 
 
     constructor(x: number, y: number, w: number, h: number) {
@@ -109,21 +111,11 @@ export class FrameRect {
         this.w = w;
         this.h = h;
         this.image = null;
+        this.id = ++FrameRect._id;
     }
 
     setImage(image: File | null) {
         console.log("add image");
-        this.image = image;
-    }
-}
-
-export class Frame {
-
-    rects: FrameRect[];
-    image: HTMLImageElement;
-
-    constructor(image: HTMLImageElement) {
-        this.rects = [];
         this.image = image;
     }
 }

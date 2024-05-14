@@ -3,14 +3,15 @@ import { useState, useContext } from "react";
 import { FrameContext } from "@/utils/FrameContext";
 import { FrameRect } from "@/utils/misc";
 
+const modes = ["VIEW", "DRAW", "DELETE"];
+
 export default function ImgFrameAdmin() {
-    const { rects, addNewRect, frameImage } = useContext(FrameContext);
-    const [drawMode, setDrawMode] = useState(false);
+    const { rects, setRects, removeRect, frameImage } = useContext(FrameContext);
+    const [mode, setMode] = useState("VIEW");
     const [tempRect, setTempRect] = useState(null);
 
-
     const onCanvasMouseMove = (e) => {
-        if (!drawMode || !tempRect) return;
+        if (mode !== "DRAW" || !tempRect) return;
 
         const pos = e.target.getStage().getRelativePointerPosition();
         setTempRect((prevRect) => ({
@@ -21,13 +22,14 @@ export default function ImgFrameAdmin() {
     };
 
     const onCanvasMouseDown = (e) => {
-        if (!drawMode) return;
+        if (mode !== "DRAW") return;
 
         const pos = e.target.getStage().getRelativePointerPosition();
         console.log(pos);
         if (tempRect) {
             // // add new rect
-            addNewRect(new FrameRect(tempRect.x, tempRect.y, tempRect.ex - tempRect.x, tempRect.ey - tempRect.y));
+            const nr = new FrameRect(tempRect.x, tempRect.y, tempRect.ex - tempRect.x, tempRect.ey - tempRect.y);
+            setRects({ ...rects, [nr.id]: nr });
             setTempRect(null);
         } else {
             // add temp rect
@@ -41,14 +43,15 @@ export default function ImgFrameAdmin() {
     //     setTempRect(null);
     // }
 
+
     return (
-        <div className="relative flex items-start w-full flex-grow rounded-xl">
-            <button
-                className="z-10 p-2 bg-zinc-500 hover:invert rounded-xl"
-                onClick={() => setDrawMode(!drawMode)}
+        <div className="relative flex gap-2 items-start w-full flex-grow rounded-xl">
+            {modes.map(m => <button
+                key={m} onClick={() => setMode(m)}
+                className={`z-10 p-2 bg-zinc-300 rounded-xl ${m === mode && "invert"}`}
             >
-                DrawMode : {drawMode ? "on" : "off"}
-            </button>
+                {m}
+            </button>)}
 
             <Stage
                 width={window.innerWidth}
@@ -56,7 +59,7 @@ export default function ImgFrameAdmin() {
                 onMouseDown={onCanvasMouseDown}
                 onMouseMove={onCanvasMouseMove}
                 className="absolute top-0 left-0 bg-slate-200 rounded-xl"
-                draggable={!drawMode}
+                draggable={mode === "VIEW"}
             >
                 <Layer>
                     <Group
@@ -72,12 +75,14 @@ export default function ImgFrameAdmin() {
                             />
                         )}
 
-                        {rects.map((r, i) => (
+                        {Object.entries(rects).map(([i, r]) => (
                             <Rect
                                 key={i} x={r.x} y={r.y}
                                 width={r.w} height={r.h}
-                                stroke="#aa0"
-                                strokeWidth={4}
+                                stroke="#aa0" strokeWidth={4} fill="#aa0"
+                                onClick={_ => mode === "DELETE" && removeRect(i)}
+                                draggable={mode === "VIEW"}
+                                onDragEnd={e => { r.x = e.target.x(); r.y = e.target.y() }}
                             />
                         ))}
                     </Group>

@@ -1,7 +1,6 @@
 'use client';
 
 import React, { createContext, useEffect, useState } from "react";
-import { Frame } from "./misc";
 import _frame from "@/assets/Images/family.png";
 
 
@@ -10,7 +9,7 @@ export const FrameContext = createContext();
 export const FrameProvider = ({ children }) => {
     // const [rects, setRects] = useState([]);
 
-    const [frame, setFrame] = useState(new Frame);
+    const [rects, setRects] = useState({});
     const [frameImage, setFrameImage] = useState(null);
 
     useEffect(() => {
@@ -22,15 +21,17 @@ export const FrameProvider = ({ children }) => {
         frame.src = _frame.src;
     }, []);
 
-
-    const addImage = (e, r) => {
-        r.setImage();
+    const removeRect = i => {
+        const { [i]: _, ...rest } = rects;
+        setRects(rest);
     }
-    const addNewRect = r => frame.rects.push(r);
-    const rects = frame.rects;
+
+    const addNewImage = (r) => {
+        // image adding logic here
+    }
 
     return (
-        <FrameContext.Provider value={{ frameImage, rects, addNewRect, addImage }}>
+        <FrameContext.Provider value={{ rects, setRects, removeRect, frameImage, addNewImage }}>
             {children}
         </FrameContext.Provider>
     );
