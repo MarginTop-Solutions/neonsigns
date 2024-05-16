@@ -70,8 +70,7 @@ export default function ImgFrameAdmin() {
                         {frameImage && (
                             <Image
                                 image={frameImage}
-                                x={0}
-                                y={0}
+                                x={0} y={0}
                             />
                         )}
 

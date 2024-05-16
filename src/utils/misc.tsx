@@ -113,9 +113,4 @@ export class FrameRect {
         this.image = null;
         this.id = ++FrameRect._id;
     }
-
-    setImage(image: File | null) {
-        console.log("add image");
-        this.image = image;
-    }
 }

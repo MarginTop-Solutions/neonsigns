@@ -26,12 +26,13 @@ export const FrameProvider = ({ children }) => {
         setRects(rest);
     }
 
-    const addNewImage = (r) => {
-        // image adding logic here
+    const setRectImage = (r, img) => {
+        r.image = img;
+        setRects({ ...rects, [r.id]: r });
     }
 
     return (
-        <FrameContext.Provider value={{ rects, setRects, removeRect, frameImage, addNewImage }}>
+        <FrameContext.Provider value={{ rects, setRects, removeRect, setRectImage, frameImage }}>
             {children}
         </FrameContext.Provider>
     );
